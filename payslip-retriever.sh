@@ -139,7 +139,7 @@ if [ "${#PAYSLIP_DATE}" -le '7' ]; then
   PAYSLIP_DATE="$(calc_payroll_date "${PAYSLIP_DATE}-01")"
 fi
 
-PAY_RUN_CODE="$($date -d "${PAYSLIP_DATE}" '+%Y%m%d')0005"
+PAY_RUN_CODE="$($date -d "${PAYSLIP_DATE}" '+%Y%m%d')0004"
 PAY_RUN_ENTRY_CODE="$(calc_run_entry_code "${PAYSLIP_DATE}")"
 EE_PAYROLL_CODE='001'
 EE_SEPARATE_CHECK='0'
@@ -166,15 +166,15 @@ wget ${VERBOSE} --user="${USERNAME}" "${PASSWORD_ARG}" \
 echo 'Obtaining session token...'
 TOKEN="$(wget ${VERBOSE} -O - \
   --load-cookies 'cookies.txt' \
-  'https://fress2.adp.com/core/coreControl.asp?ProductType=0' \
+  'https://fress1.adp.com/core/coreControl.asp?ProductType=0' \
   | grep sessionToken | cut -d "'" -f2)"
 
 echo 'Downloading payslip...'
 wget ${VERBOSE} \
   --load-cookies 'cookies.txt' \
   --output-document="${OUT_FILE}" \
-  --header='Referer: https://fress2.adp.com/eforms/PdfDisplay.aspx' \
-"https://fress2.adp.com/eforms/PdfBuilder.aspx?\
+  --header='Referer: https://fress1.adp.com/eforms/PdfDisplay.aspx' \
+"https://fress1.adp.com/eforms/PdfBuilder.aspx?\
 f=${FUNCTION}&\
 j=${JURISDICTION}&\
 y=${YEAR}&\
